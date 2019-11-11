@@ -1,0 +1,22 @@
+#
+# application-mongo.yml
+#
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS
+  autoconfigure:
+    exclude: >
+      org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration,
+      org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration,
+      org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  data:
+    jpa:
+      repositories:
+        enabled: false
+    mongodb:
+      uri: mongodb://localhost/rocket
+management:
+  health:
+    mongo:
+      enabled: true

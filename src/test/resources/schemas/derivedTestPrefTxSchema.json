@@ -1,0 +1,14 @@
+{
+  "schemaName": "derivedTestSchema",
+  "defaultValue": "(null)",
+  "aliases": {
+    "vep": "Vep",
+    "clingen": "ClinGenAR",
+    "transcripts": "ClinGenAR.transcriptAlleles[*].hgvs"
+  },
+  "schema": {
+    "clingen" : "clingen.*",
+    "clinGenPreferred":  "PrefTx.preferred",
+    "clinGenPreferredLRG":  "PrefTx.lrg"
+  }
+}

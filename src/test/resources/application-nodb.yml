@@ -1,0 +1,20 @@
+#
+# application-nodb.yml
+#
+spring:
+  autoconfigure:
+    exclude: >
+      org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration,
+      org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,
+      org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration,
+      org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration,
+      org.springframework.boot.autoconfigure.data.orm.jpa.mongo.MongoDataAutoConfiguration,
+      org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
+  data:
+    jpa:
+      repositories:
+        enabled: false
+management:
+  health:
+    mongo:
+      enabled: false

@@ -1,0 +1,67 @@
+# To start, if you want to create a NEW schema, then use a POST to create it, and save the newly created entity.
+echo '{ "schemaName" : "newSchemaN2" }' | ./curlpost "http://localhost:8080/api/derivedSchemaDaos" > document.json
+#
+OR, you can find the schema you want by name
+curl -s -X GET http://localhost:8080/api/derivedSchemaDaos/search/findBySchemaName?schemaName=nicksSchema > document.json
+#
+# document.json should contain an initialised document like:
+{
+  "schemaName" : "newSchemaN2",
+  "version" : 0,
+  "sources" : null,
+  "defaultValue" : null,
+  "aliases" : { },
+  "schema" : { },
+  "id" : "5d4d371d6b721448f80aa33f",
+  "new" : false,
+  "keyName" : null,
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/api/derivedSchemaDaos/5d4d371d6b721448f80aa33f"
+    },
+    "derivedSchemaDao" : {
+      "href" : "http://localhost:8080/api/derivedSchemaDaos/5d4d371d6b721448f80aa33f"
+    }
+  }
+}
+# OR an existing document if found by schemaName
+{
+  "_embedded" : {
+    "derivedSchemaDaos" : [ {
+      "schemaName" : "nicksSchema",
+      "version" : 40,
+      "sources" : [ "1", "2", "3", "4" ],
+      "defaultValue" : "null",
+      "aliases" : { },
+      "schema" : {
+        "sampleName" : "samplename buffered off",
+        "gene" : "gene buffered on",
+        "variant" : "variant33 buffered off"
+      },
+      "id" : "5b88bdafebfd533df0cf07ec",
+      "new" : false,
+      "keyName" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/derivedSchemaDaos/5b88bdafebfd533df0cf07ec"
+        },
+        "derivedSchemaDao" : {
+          "href" : "http://localhost:8080/api/derivedSchemaDaos/5b88bdafebfd533df0cf07ec"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/api/derivedSchemaDaos/search/findBySchemaName?schemaName=nicksSchema"
+    }
+  }
+}
+#
+# either way, find the  "id" : "5b88bdafebfd533df0cf07ec" and construct a GET to display the document
+#
+curl -s -X GET http://localhost:8080/api/derivedSchemaDaos/5b88bdafebfd533df0cf07ec > document.json
+#
+# or use a PUT to update the document
+./curlput "http://localhost:8080/api/derivedSchemaDaos/5b88bdafebfd533df0cf07ec" < document.json
+

@@ -1,0 +1,23 @@
+{
+  "sources": "vep, mutalyzer, myvariant",
+  "schemaName": "pm_derived_datasource",
+  "defaultValue": "",
+  "aliases": {
+    "mutalyzer": "sourceResults.Mutalyzer",
+    "vep": "Vep",
+    "clingen": "ClingenAR",
+    "referenceSeq": "referenceSequence.aliased"
+  },
+  "schema": {
+    "myAccess": "referenceSeq.accession",
+    "myChrom": "referenceSeq.chromosome",
+    "myType": "referenceSeq.type",
+    "myVariant": "referenceSeq.variant",
+    "myTranscript": "transcript",
+    "moleculeType": "referenceSeq.variantCall.reference.moleculeType",
+    "moleculeType4": "Molecule={referenceSeq.variantCall.reference.moleculeType} yes sir !! and CHR={referenceSeq.chromosome}",
+    "id": "colocated_variants.*.id",
+    "clin_sig": "colocated_variants.*.clin_sig",
+    "alleles": "colocated_variants.*.allele_string"
+  }
+}

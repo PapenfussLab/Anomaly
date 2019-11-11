@@ -1,0 +1,5 @@
+FROM openjdk:8-jre
+
+ARG version
+ADD AnomalyApi-${version}-SNAPSHOT.jar /usr/local/lib/anomaly.jar
+ENTRYPOINT ["java", "-jar", "/usr/local/lib/anomaly.jar"]

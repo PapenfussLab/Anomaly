@@ -1,0 +1,6 @@
+#
+# application-cloud-local.yml
+#
+spring:
+  profiles:
+    include: mongo

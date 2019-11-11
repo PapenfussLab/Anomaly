@@ -1,0 +1,6 @@
+#
+# application-cloud.yml
+#
+spring:
+  profiles:
+    include: mongo

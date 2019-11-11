@@ -1,0 +1,25 @@
+#
+# manifest.yml  (for: cf push)
+# API endpoint:   https://api.run.pivotal.io (API version: 2.138.0)
+# User:           nicholas.kravchenko@gmail.com
+# Org:            nic-org
+# Space:          development
+#
+---
+applications:
+- name: anomalyApi
+  memory: 1G
+  instances: 1
+  routes:
+    - route: pathos-nic.cfapps.io
+    - route: pathos.cfapps.io
+  path: build/libs/AnomalyApi-1.1.6-SNAPSHOT.jar
+#  services:
+#    - network-explorer-mongodb
+  env:
+    SPRING_PROFILES_ACTIVE: mongo
+    DEBUG: "false"
+    debug: "false"
+    JAVA_OPTS: -Duser.timezone=Australia/Victoria
+    API_REST_HOST: anomaly.cfapps.io
+#    API_REST_PORT: 443

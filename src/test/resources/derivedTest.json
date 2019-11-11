@@ -1,0 +1,64 @@
+{
+  "referenceSequence": {
+    "aliased": {
+      "accession": "NC",
+      "chromosome": "chr17",
+      "type": "Genomic",
+      "variantParser": {},
+      "variant": "g.41276247A>G",
+      "variationPart": "41276247A>G",
+      "variantCall": {
+        "reference": {
+          "sequence": [],
+          "null": true,
+          "moleculeType": "None"
+        },
+        "position": {
+          "range": false,
+          "start": null,
+          "pos": null,
+          "startAsInt": -1,
+          "end": null,
+          "null": true
+        },
+        "alt": {
+          "sequence": [],
+          "null": true,
+          "moleculeType": "None"
+        },
+        "chromosome": "NULL"
+      },
+      "null": false
+    }
+  },
+  "colocated_variants": [
+    {
+      "phenotype_or_disease": "1",
+      "seq_region_name": "2",
+      "strand": "1",
+      "id": "CM041805",
+      "allele_string": "HGMD_MUTATION",
+      "end": "47702181",
+      "start": "47702181"
+    },
+    {
+      "phenotype_or_disease": "1",
+      "seq_region_name": "2",
+      "strand": "1",
+      "id": "rs63750200",
+      "allele_string": "C/T",
+      "clin_sig": [
+        "uncertain_significance",
+        "pathogenic"
+      ],
+      "end": "47702181",
+      "start": "47702181"
+    }
+  ],
+  "transcript": "NC_000017.10:g.41276247A>G",
+  "base": "NC_000017",
+  "version": 10,
+  "variant": "g.41276247A>G",
+  "null": false,
+  "referenceSequenceType": "Genomic"
+}

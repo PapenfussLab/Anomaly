@@ -1,0 +1,21 @@
+#
+# application-jpa.yml
+#
+spring:
+  autoconfigure:
+    exclude: >
+      org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration,
+      org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration,
+      org.springframework.boot.autoconfigure.data.orm.jpa.mongo.MongoDataAutoConfiguration
+  datasource:
+#    url: jdbc:postgresql://localhost:5432/rocket
+    url: jdbc:h2:mem:testdb
+    H2
+    POSTGRESQL
+     org.hibernate.dialect.PostgreSQLDialect
+    username: postgress
+    password: postgress
+#  data:
+#    mongodb:
+#      repositories:
+#        type: none

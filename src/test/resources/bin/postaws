@@ -1,0 +1,6 @@
+#!/bin/bash
+
+if [ -r "$1" ]; then
+cat $1 | curlpostplain "http://api-anomaly.ap-southeast-2.elasticbeanstalk.com/v1/annotate/vcf/file?tag=$1"
+fi
+

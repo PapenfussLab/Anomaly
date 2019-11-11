@@ -1,0 +1,12 @@
+#
+# application.yml
+#
+spring:
+  profiles: # choose which DB environment you want to work with: SQL or NoSQL - one will disable the other.
+#    active: mongo
+    active: mongo-local
+#    active: nodb
+logging:
+  level:
+    org.petermac: debug
+

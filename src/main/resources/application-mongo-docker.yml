@@ -1,0 +1,27 @@
+#
+# application-mongo.yml
+#
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS
+  autoconfigure:
+    exclude: >
+      org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration,
+      org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration,
+      org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  data:
+    jpa:
+      repositories:
+        enabled: false
+    mongodb:
+      username: mongouser
+      password: mongopass567
+      database: anomalydb
+      port: 27017
+      host: mongodb
+      authentication-database: admin
+management:
+  health:
+    mongo:
+      enabled: true

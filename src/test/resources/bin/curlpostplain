@@ -1,0 +1,4 @@
+#!/bin/bash
+
+curl -s -X POST --data-binary @-  "$1" -H "Content-Type:text/plain"
+#curl -s -X POST --data-binary @-  http://localhost:8080/v1/annotate/vcf/file?sources=All%2B  -H "Content-Type:text/plain"

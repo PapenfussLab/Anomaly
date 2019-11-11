@@ -1,0 +1,159 @@
+//
+// build.gradle
+//
+
+buildscript {
+    dependencies {
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.2.RELEASE"
+    }
+}
+
+plugins {
+    id 'org.springframework.boot' version '2.0.0.RELEASE'// or 1.5.10.RELEASE . 2.0.2 don't work ? mongo trips it.
+    id "com.github.pivotalservices.cf-app" version "2.2.0-rc.3"
+//    id "io.townsq.aws-eb-docker-update" version "1.0.3"
+//    id "com.gorylenko.gradle-git-properties" version "1.4.17" //for auto pilot and blue/green ?? Needs a .got repo
+
+}
+
+version = "1.1.6-SNAPSHOT"
+group "org.petermac.anomaly"
+
+def springBomVersion = "5.0.8.RELEASE"
+
+springBoot {
+    buildInfo()
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'groovy'
+apply plugin: 'application'
+
+//apply plugin: 'com.palantir.docker'
+
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+bootRun {
+    main = 'org.petermac.nic.Application'//     Main class of @SpringBootApplication
+}
+
+sourceSets {
+    main {
+        java { srcDirs = ["src/main/java"] }    // no source dirs for the java compiler
+    }
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven { url 'http://repo.spring.io/milestone' }
+    //    maven { url "https://plugins.gradle.org/m2/" }
+    maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
+}
+
+// Bill Of Materials {This is the guts of our version dependencies: Spring 5.0.3 with Vaadin 8.1.8 }
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework:spring-framework-bom:${springBomVersion}"
+//        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Finchley.M9'
+    }
+}
+
+compileJava.dependsOn(processResources)
+bootRun.dependsOn(processResources)
+
+dependencies {
+    compile 'org.petermac.anomaly:anomaly-vcf:1.1.6-SNAPSHOT'
+
+    /**
+     * Starters
+     */
+//    compile("org.springframework.data:spring-data-rest-hal-browser")
+    compile("org.springframework.boot:spring-boot-starter-data-rest") //Doesn't want to play with Mongo ?
+//    compile("org.springframework.boot:spring-boot-starter-data-jpa") //Doesn't want to play with Mongo ?
+    compile('org.springframework.boot:spring-boot-starter-data-mongodb')
+//    compile('com.github.derjust:spring-data-dynamodb')
+//    compile('com.amazonaws:aws-java-sdk-dynamodb')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-security')
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    // can stuff some things up (so disable if u have to)
+    compile('org.springframework.boot:spring-boot-autoconfigure')
+    compile('org.springframework.boot:spring-boot-configuration-processor') //For IDE
+
+    /**
+     * Metering
+     */
+    //    compile('org.jolokia:jolokia-core') // /actuator/jolokia
+//    compile('io.micrometer:micrometer-registry-jmx:latest.release')
+    compile('org.springframework.boot:spring-boot-starter-aop')
+    compile('org.springframework.boot:spring-boot-starter-integration')
+    compile('io.micrometer:micrometer-registry-prometheus')
+//    compile('org.springframework.integration:spring-integration-jmx:5.1.1.RELEASE') //nup
+
+    /**
+     * Anomaly
+     */
+    compile('com.jayway.jsonpath:json-path:2.4.0') //For JsonPath.compile
+
+    /*
+     * Testing
+     */
+    testCompile("junit:junit")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile('org.testng:testng:6.8')
+}
+
+cfConfig {
+    ccHost = "run.pivotal.io"
+    ccUser = "nicholas.kravchenko@gmail.com"
+    org = "nic-org"
+    space = "development"
+
+    //Proxy settings (optional)
+//    cfProxySettings {
+//        proxyHost = "proxy.host"
+//        proxyPort = 1234
+//        proxyUser = "user"
+//        proxyPassword = "password"
+//    }
+
+    //App Details
+    name = "anomaly-api"
+//    filePath = "build/libs/cf-show-env-0.1.2-SNAPSHOT.jar"
+//    path = ""
+    domain = "cfapps.io"
+//    instances = 2
+//    memory = 512
+//    timeout = 180
+
+    //Env and services
+//    buildpack = "https://github.com/cloudfoundry/java-buildpack.git"
+//    environment = ["JAVA_OPTS": "-Djava.security.egd=file:/dev/./urandom", "SPRING_PROFILES_ACTIVE": "cloud"]
+//    services  = ["network-explorer-mongodb"]
+}
+/*
+Cloud Foundry tasks
+-------------------
+cf-create-services - Create a set of services
+cf-delete-app - Delete an application from Cloud Foundry
+cf-delete-route - Delete a route from Cloud Foundry
+cf-get-app-detail - Get the application detail from Cloud Foundry
+cf-map-route - Add a route for an application
+cf-push - Pushes an Application to Cloud Foundry
+cf-push-autopilot - Push an Application in a no downtime Autopilot mode
+cf-push-blue-green - Push an Application in a Blue-Green no downtime mode - Stage 2
+cf-push-blue-green-1 - Push an Application in a Blue-Green no downtime mode - Stage 1
+cf-rename-app - Rename an Application
+cf-restage-app - Restage an Application
+cf-restart-app - Restart an Application
+cf-start-app - Start an Application
+cf-stop-app - Stop an Application
+cf-unmap-route - Remove an existing route for an application
+*/

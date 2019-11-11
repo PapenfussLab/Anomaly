@@ -1,0 +1,115 @@
+#
+# Anomaly API
+# application.yml
+#
+spring:
+  profiles: # choose which DB environment you want to work with: SQL or NoSQL - one will disable the other.
+    active: mongo
+#    active: nodb
+#    active: mongo-local
+#    active: jpa
+  data:
+    rest:
+      base-path: /api
+#      default-media-type: application/json # allow HAL?
+  output:
+    ansi:
+      enabled: DETECT
+  security: # Use this for embedded spring-boot apps like /actuator
+    user:
+      name: pathos
+      password: pathos
+      roles: PATHOS
+
+  banner:
+    location: classpath:banner.txt
+#
+logging:
+  level:
+    org.springframework: INFO
+#  pattern:
+#    console: %-13(%d{HH:mm:ss.SSS}) | %highlight(%-5level) | %cyan(%-45(%c{1})) %magenta([%-30(%M:%L)]) %msg%n
+
+
+#My Bean
+application:
+  version: 1.0.2
+  name: Anomaly API
+  timeZone: Australia/Melbourne
+# Spring Boot Actuator additional arbitrary information about this app added to /actuator/info  end-point
+info:
+    application:
+        name: Anomaly API
+        description: A Genomic Variant Annotation REST API
+        version: 1
+
+# Spring Boot Actuator end-points configuration
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+#        include: health, info, heapdump, threaddump, env, metrics, httptrace, configprops, loggers, prometheus
+#  health:
+#    mongo:
+#      enabled: true
+server:
+  error:
+    path: /error
+    whitelabel:
+      enabled: false
+#  servlet:
+#    application-display-name: Anomaly
+#    session:
+#      timeout: 300
+#---
+#spring:
+#  profiles: mongo
+#  autoconfigure:
+#    exclude: >
+#      org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration,
+#      org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration,
+#      org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+#  data:
+#    jpa:
+#      repositories:
+#        enabled: false
+#    mongodb:
+#      uri: mongodb+srv://nick:XMyTjyPqjJZFMBCN@rocket-pc4vk.mongodb.net/rocket
+#  profiles:
+#    include: cloud, mongo
+#        uri: ${vcap.services.network-explorer-mongodb.credentials.uri}
+#        database: rocket
+
+#{
+#    "_id": "CloudFoundry_532r66i8_qq1vghht.CloudFoundry_532r66i8_qq1vghht_vv23cunr",
+#    "user": "CloudFoundry_532r66i8_qq1vghht_vv23cunr",
+#    "db": "CloudFoundry_532r66i8_qq1vghht",
+#    "roles": [
+#        {
+#            "role": "dbOwner",
+#            "db": "CloudFoundry_532r66i8_qq1vghht"
+#        }
+#    ]
+#}
+---
+#spring:
+#  profiles: jpa
+#  autoconfigure:
+#    exclude: >
+#      org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration,
+#      org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration,
+#      org.springframework.boot.autoconfigure.data.orm.jpa.mongo.MongoDataAutoConfiguration
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/rocket
+#    url: jdbc:h2:mem:testdb
+#    H2
+#    POSTGRESQL
+#     org.hibernate.dialect.PostgreSQLDialect
+#    username: postgress
+#    password: postgress
+#  data:
+#    mongodb:
+#      repositories:
+#        type: none

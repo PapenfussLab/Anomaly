@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2015. Network Informatics Pty. Ltd.
+  -->
+
+<!DOCTYPE project>
+<!--
+Driver Configuration
+
+Configuration
+	Attribute: 	debug
+					- true		Show Logback Internal Logging
+					- false		Hide Logback Internal Logging
+
+				scan
+					- true		Automatically reloads Logging configuration
+								Default scanning interval is 60 seconds
+					- false		Don't reload configuration
+-->
+<configuration debug="false" scan="true">
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+    <conversionRule conversionWord="wex"
+                    converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
+    <conversionRule conversionWord="wEx"
+                    converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
+
+    <property name="CONSOLE_LOG_PATTERN"
+              value="${CONSOLE_LOG_PATTERN:-%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(---){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+    <!--<property name="CONSOLE_LOG_PATTERN" value="${CONSOLE_LOG_PATTERN:-%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(-&#45;&#45;){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>-->
+    <property name="FILE_LOG_PATTERN"
+              value="${FILE_LOG_PATTERN:-%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!--<pattern>${CONSOLE_LOG_PATTERN}</pattern>-->
+            <!--<pattern>%d %5p %c{1}:%L - %m%n</pattern>-->
+            <pattern>%clr(%-13(%d{HH:mm:ss.SSS})){faint} | %clr(%-5level)|%clr(%-45(%c{1})){cyan}%clr([%-25(%M:%L)]){magenta} %msg%n%wEx
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- Logback Logger Configuration -->
+    <logger name="ch.qos.logback" level="OFF"/>
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.springframework.security" level="INFO"/>
+    <logger name="org.vaadin" level="INFO"/>
+    <logger name="org.vaadin.spring" level="INFO"/>
+    <logger name="org.apache.http" level="INFO"/>
+    <logger name="groovyx.net" level="INFO"/>
+
+    <!--<logger name="org.petermac.nic" level="TRACE"/>-->
+
+    <!-- Logback Root Appender -->
+    <!--<root level="DEBUG">-->
+        <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+
+    </root>
+</configuration>

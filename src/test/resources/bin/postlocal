@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cat $1 | curlpostplain "http://localhost:8080/v1/annotate/vcf/file?schema=pathos_schema&tag=$1"
+
